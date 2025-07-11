@@ -9,8 +9,9 @@ SUM(ventas.monto) AS total;
  
 por_categoria = GROUP ventas BY categoria; 
 estadisticas = FOREACH por_categoria GENERATE group AS categoria, 
-COUNT(ventas), AVG((double)ventas.monto); 
- 
+              COUNT(ventas) AS cantidad, 
+              AVG(ventas.monto) AS promedio;
+
 ordenadas = ORDER altas BY monto DESC; 
  
 STORE total_ciudad INTO '/salida/por_ciudad' USING PigStorage(','); 
